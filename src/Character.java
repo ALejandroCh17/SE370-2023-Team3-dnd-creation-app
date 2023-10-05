@@ -4,6 +4,7 @@ public class Character {
   private Stats abilityScores;
   private Skills skillList;
   private Race race;
+  private Job job;
 
   // Creates a Character with using Default Ability Scores and no proficient
   // skills
@@ -13,26 +14,33 @@ public class Character {
     this.skillList = new Skills(this.abilityScores.getMods(), prof);
     this.race = new Human();
     this.abilityScores.modifyStats(race.getStatMods());
+    this.job = new Barbarian();
+    this.skillList.addProficiency(this.job.getSkills());
   }
 
   // Creates a Character in a way that mimicks irl character creation
   // if isStandard is true, it uses the standard ability score array
   // if true, it will mimic dice rolling as layed out by the rulebook
   // prof is a list of proficient skills
-  public Character(boolean isStandard, ArrayList<String> prof, String raceName) throws Exception {
+  public Character(boolean isStandard, ArrayList<String> prof, String raceName, String jobName) throws Exception {
     this.abilityScores = new Stats(isStandard);
     this.skillList = new Skills(this.abilityScores.getMods(), prof);
     this.race = Race.createRace(raceName);
     this.abilityScores.modifyStats(race.getStatMods());
+    this.job = Job.createJob(jobName);
+    System.out.printf("Job Profs: %s\n", this.job.getSkills());
+    this.skillList.addProficiency(this.job.getSkills());
   }
 
   // Creates a Character using an int array, to assign Ability Score directly
   // Throws Exception if the int array does not equal 6
-  public Character(int[] n, ArrayList<String> prof, String raceName) throws Exception {
+  public Character(int[] n, ArrayList<String> prof, String raceName, String jobName) throws Exception {
     this.abilityScores = new Stats(n);
     this.skillList = new Skills(this.abilityScores.getMods(), prof);
     this.race = Race.createRace(raceName);
     this.abilityScores.modifyStats(race.getStatMods());
+    this.job = Job.createJob(jobName);
+    this.skillList.addProficiency(this.job.getSkills());
   }
 
   // Creates a Character using Default Ability Score and no proficient skills
@@ -41,6 +49,8 @@ public class Character {
     this.skillList = new Skills(this.abilityScores.getMods(), prof);
     this.race = new Human();
     this.abilityScores.modifyStats(race.getStatMods());
+    this.job = new Barbarian();
+    this.skillList.addProficiency(this.job.getSkills());
   }
 
   // Returns the ablitityScores object
@@ -78,14 +88,20 @@ public class Character {
     // System.out.println("==========Race==========");
     // System.out.println(autoCreate.race.getAgeRange());
 
-    Character customCreate = new Character(arr, prof, "lightfoot");
+    // System.out.println("==========Job==========");
+    // System.out.println(autoCreate.job.getEquipment());
+
+    Character customCreate = new Character(arr, prof, "human", "bard");
     System.out.println("=====Stats=====");
     System.out.println(customCreate.getAbilityScoresString());
     System.out.println("==========Skills==========");
     System.out.println(customCreate.getSkillsString());
-    System.out.println("Cha Mod: " + customCreate.getStats().getChaMod());
 
     System.out.println("==========Race==========");
     System.out.println(customCreate.race.getAgeRange());
+
+    System.out.println("==========Job==========");
+    System.out.println(customCreate.job.getSkills());
+
   }
 }

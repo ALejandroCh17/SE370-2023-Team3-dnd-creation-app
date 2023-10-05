@@ -238,7 +238,6 @@ abstract class Dwarf extends Race {
         }
         scan.close();
     }
-
 }
 
 class HillDwarf extends Dwarf {
@@ -374,6 +373,7 @@ class Stout extends Halfling {
 
 class Human extends Race {
     Human() {
+        System.out.println("CREATING HUMAN");
         for (int i = 0; i < 6; i++) {
             this.setStatMods(i, 1);
         }
@@ -387,7 +387,6 @@ class Human extends Race {
                 "Abyssal, Celestial, Draconic, Deep Speech, Infernal, Primordial, Sylvan, and Undercommon.");
         String input = scan.nextLine();
         this.setLanguages(input);
-        scan.close();
     }
 }
 

@@ -77,24 +77,20 @@ public class Skills {
   }
 
   public void addProficiency(String name) {
-    name = name.toLowerCase();
+    name = name.toLowerCase().trim();
     for (Skill skill : this.skillList) {
-      if (skill.getName() == name) {
+      String skillName = skill.getName();
+      if (skillName.equals(name)) {
         skill.setProficient(true);
         skill.setModifier(skill.getModifier() + 2);
+        break;
       }
     }
   }
 
   public void addProficiency(ArrayList<String> names) {
     for (String name : names) {
-      for (Skill skill : this.skillList) {
-        if (skill.getName() == name) {
-          name = name.toLowerCase();
-          skill.setProficient(true);
-          skill.setModifier(skill.getModifier() + 2);
-        }
-      }
+      addProficiency(name);
     }
   }
 
@@ -138,42 +134,42 @@ public class Skills {
     System.out.println(testSkills.toString());
 
   }
-}
 
-class Skill {
-  public boolean proficient;
-  public int modifier;
-  public final String name;
-  public final int statIndex;
+  private class Skill {
+    public boolean proficient;
+    public int modifier;
+    public final String name;
+    public final int statIndex;
 
-  public Skill(boolean proficient, int modifier, String name, int statIndex) {
-    this.proficient = proficient;
-    this.modifier = modifier;
-    this.name = name;
-    this.statIndex = statIndex;
-  }
+    public Skill(boolean proficient, int modifier, String name, int statIndex) {
+      this.proficient = proficient;
+      this.modifier = modifier;
+      this.name = name;
+      this.statIndex = statIndex;
+    }
 
-  public boolean isProficient() {
-    return proficient;
-  }
+    public boolean isProficient() {
+      return proficient;
+    }
 
-  public void setProficient(boolean proficient) {
-    this.proficient = proficient;
-  }
+    public void setProficient(boolean proficient) {
+      this.proficient = proficient;
+    }
 
-  public int getModifier() {
-    return modifier;
-  }
+    public int getModifier() {
+      return modifier;
+    }
 
-  public void setModifier(int modifier) {
-    this.modifier = modifier;
-  }
+    public void setModifier(int modifier) {
+      this.modifier = modifier;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+      return name;
+    }
 
-  public int getIndex() {
-    return statIndex;
+    public int getIndex() {
+      return statIndex;
+    }
   }
 }

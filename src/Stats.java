@@ -3,16 +3,18 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.plaf.synth.SynthStyle;
+
 public class Stats {
   private int[] statLevel = new int[6];
   private int[] statModifiers = new int[6];
-  private Scanner k = new Scanner(System.in);
 
   public Stats() {
     // Fills Ability Points with all 10s
     for (int i = 0; i < 6; i++) {
       setStat(i, 10);
     }
+    closeScanner();
   }
 
   // Fill Ability Points with a custom number
@@ -21,6 +23,7 @@ public class Stats {
     for (int i = 0; i < 6; i++) {
       setStat(i, n);
     }
+    closeScanner();
   }
 
   // Set Ability Points using a int array
@@ -30,6 +33,8 @@ public class Stats {
 
     for (int i = 0; i < 6; i++)
       setStat(i, stats[i]);
+
+    closeScanner();
   }
 
   public Stats(boolean isStandard) {
@@ -78,10 +83,12 @@ public class Stats {
       setStat(chooseStat(statArray.get(0)), statArray.get(0));
       statArray.remove(0);
     }
+    closeScanner();
   }
 
   // How the player picks what roles he wants for what stats
   public int chooseStat(int score) {
+    Scanner k = new Scanner(System.in);
     boolean validInput = false;
     int index = -1;
 
@@ -261,7 +268,7 @@ public class Stats {
   }
 
   public void closeScanner() {
-    k.close();
+    // k.close();
   }
 
   public String toString() {
@@ -276,11 +283,13 @@ public class Stats {
   }
 
   public static void main(String[] args) throws Exception {
+    Scanner k = new Scanner(System.in);
     int stats[] = { 15, 14, 13, 12, 10, 8 };
     int modifier[] = { 10, 10, 10, 10, 10, 10 };
-    Stats testStats = new Stats(stats);
+    Stats testStats = new Stats(false);
     System.out.printf("\nStats before modifier: %s", testStats.toString());
     testStats.modifyStats(modifier);
     System.out.printf("\nStats after modifier: %s", testStats.toString());
+    k.close();
   }
 }
